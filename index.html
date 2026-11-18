@@ -29,6 +29,9 @@
     <!-- Google Fonts with Display Swap & Fallbacks -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://maps.google.com">
+    <link rel="dns-prefetch" href="https://maps.google.com">
+    <link rel="dns-prefetch" href="https://wa.me">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Schema.org Dentist Structured Data -->
@@ -77,7 +80,7 @@
     </script>
 
     <!-- Production Stylesheet with Cache-Busting -->
-    <link rel="stylesheet" href="css/styles.css?v=20261116_v11">
+    <link rel="stylesheet" href="css/styles.css?v=20261118_perf1">
 </head>
 <body>
 
@@ -214,7 +217,7 @@
                     <div class="hero-portrait-col">
                         <div class="portrait-frame-wrapper">
                             <div class="portrait-inner-box">
-                                <img src="assets/img/doctor_oscar_cruz_retrato.jpg" alt="Dr. Oscar Cruz - Especialista en Rehabilitación Oral y Estética Dental en Bucaramanga" class="doctor-img-portrait" loading="eager">
+                                <img src="assets/img/doctor_oscar_cruz_retrato.jpg" alt="Dr. Oscar Cruz - Especialista en Rehabilitación Oral y Estética Dental en Bucaramanga" class="doctor-img-portrait" loading="eager" fetchpriority="high" decoding="async" width="560" height="700">
                                 <div class="portrait-vignette"></div>
                             </div>
                             <div class="cert-plate" role="img" aria-label="Dr. Oscar Cruz, Rehabilitación Oral, más de 10 años de experiencia, Bucaramanga">
@@ -282,7 +285,7 @@
                 <!-- Pane 1: Lentes Cerámicos -->
                 <article class="tr8-showcase treatment-tab-pane active" id="pane-veneers" role="tabpanel" aria-labelledby="tab-veneers">
                     <div class="tr8-media">
-                        <img src="assets/img/macro_lentes_oblicuo.jpg" alt="Lentes cerámicos de alta precisión realizados por el Dr. Oscar Cruz" class="tr8-main-img" loading="lazy">
+                        <img src="assets/img/macro_lentes_oblicuo.jpg" alt="Lentes cerámicos de alta precisión realizados por el Dr. Oscar Cruz" class="tr8-main-img" loading="lazy" decoding="async" width="600" height="420">
                         <div class="tr8-media-overlay"></div>
                         <div class="tr8-media-badge">
                             <span class="tr8-badge-dot"></span>
@@ -336,7 +339,7 @@
                 <!-- Pane 2: Diseño de Sonrisa -->
                 <article class="tr8-showcase treatment-tab-pane" id="pane-smile" role="tabpanel" aria-labelledby="tab-smile">
                     <div class="tr8-media">
-                        <img src="assets/img/paciente_estudio_rubia.jpg" alt="Paciente real de Diseño de Sonrisa Dr. Oscar Cruz" class="tr8-main-img" loading="lazy">
+                        <img src="assets/img/paciente_estudio_rubia.jpg" alt="Paciente real de Diseño de Sonrisa Dr. Oscar Cruz" class="tr8-main-img" loading="lazy" decoding="async" width="600" height="420">
                         <div class="tr8-media-overlay"></div>
                         <div class="tr8-media-badge">
                             <span class="tr8-badge-dot"></span>
@@ -374,7 +377,7 @@
                         <!-- Bespoke Diamond Highlight -->
                         <div class="tr8-diamond-card">
                             <div class="tr8-diamond-thumb-wrap">
-                                <img src="assets/img/lentes_incrustacion_diamante.jpg" alt="Incrustación de diamante en lente cerámico" loading="lazy">
+                                <img src="assets/img/lentes_incrustacion_diamante.jpg" alt="Incrustación de diamante en lente cerámico" loading="lazy" decoding="async" width="100" height="100">
                             </div>
                             <div class="tr8-diamond-info">
                                 <span class="tr8-diamond-tag">Exclusividad &bull; Micro-Joyería Dental</span>
@@ -395,7 +398,7 @@
                 <!-- Pane 3: Rehabilitación Oral -->
                 <article class="tr8-showcase treatment-tab-pane" id="pane-rehab" role="tabpanel" aria-labelledby="tab-rehab">
                     <div class="tr8-media">
-                        <img src="assets/img/rehabilitacion_arco_completo.jpg" alt="Rehabilitación oral de arco completo Dr. Oscar Cruz" class="tr8-main-img" loading="lazy">
+                        <img src="assets/img/rehabilitacion_arco_completo.jpg" alt="Rehabilitación oral de arco completo Dr. Oscar Cruz" class="tr8-main-img" loading="lazy" decoding="async" width="600" height="420">
                         <div class="tr8-media-overlay"></div>
                         <div class="tr8-media-badge">
                             <span class="tr8-badge-dot"></span>
@@ -483,13 +486,13 @@
                     <div class="comparison-viewer" id="compViewer">
                         <!-- AFTER LAYER (Underneath) -->
                         <div class="comp-layer comp-layer-after">
-                            <img src="assets/img/caso_01_despues.jpg" alt="Después del tratamiento con el Dr. Oscar Cruz" class="ba-real-img" id="baAfterImg">
+                            <img src="assets/img/caso_01_despues.jpg" alt="Después del tratamiento con el Dr. Oscar Cruz" class="ba-real-img" id="baAfterImg" width="1000" height="667" loading="lazy" decoding="async">
                             <span class="ba-corner-tag ba-tag-after">Después &bull; Lentes Cerámicos</span>
                         </div>
 
                         <!-- BEFORE LAYER (Clipped on left) -->
                         <div class="comp-layer comp-layer-before" id="compBeforeLayer">
-                            <img src="assets/img/caso_01_antes.jpg" alt="Antes del tratamiento" class="ba-real-img" id="baBeforeImg">
+                            <img src="assets/img/caso_01_antes.jpg" alt="Antes del tratamiento" class="ba-real-img" id="baBeforeImg" width="1000" height="667" loading="lazy" decoding="async">
                             <span class="ba-corner-tag ba-tag-before">Condición Inicial</span>
                         </div>
 
@@ -509,21 +512,21 @@
                 <!-- 3 Macro Highlight Cards (Material Clínico & Detalle en Alta Definición) -->
                 <div class="macro-trio-grid">
                     <figure class="macro-card">
-                        <img src="assets/img/macro_labios_rojos_perfil.jpg" alt="Textura y brillo en lentes cerámicos Dr. Oscar Cruz" loading="lazy">
+                        <img src="assets/img/macro_labios_rojos_perfil.jpg" alt="Textura y brillo en lentes cerámicos Dr. Oscar Cruz" loading="lazy" decoding="async" width="400" height="280">
                         <figcaption>
                             <span>Micro-textura</span>
                             <strong>Naturalidad y brillo superficial</strong>
                         </figcaption>
                     </figure>
                     <figure class="macro-card">
-                        <img src="assets/img/macro_proporcion_armonia.jpg" alt="Proporción y anatomía natural en lentes cerámicos" loading="lazy">
+                        <img src="assets/img/macro_proporcion_armonia.jpg" alt="Proporción y anatomía natural en lentes cerámicos" loading="lazy" decoding="async" width="400" height="280">
                         <figcaption>
                             <span>Armonía dental</span>
                             <strong>Proporción y anatomía natural</strong>
                         </figcaption>
                     </figure>
                     <figure class="macro-card">
-                        <img src="assets/img/macro_lentes_oblicuo.jpg" alt="Detalle de precisión en porcelana dental" loading="lazy">
+                        <img src="assets/img/macro_lentes_oblicuo.jpg" alt="Detalle de precisión en porcelana dental" loading="lazy" decoding="async" width="400" height="280">
                         <figcaption>
                             <span>Translucidez</span>
                             <strong>Esmalte y textura microscópica</strong>
@@ -545,7 +548,7 @@
                         <!-- Card 1: Natalia Heaven -->
                         <article class="celebrity-card">
                             <div class="celebrity-img-wrap">
-                                <img src="assets/img/natalia_heaven_portrait.jpg" alt="Natalia Heaven - Lentes cerámicos con diamante por el Dr. Oscar Cruz" loading="lazy">
+                                <img src="assets/img/natalia_heaven_portrait.jpg" alt="Natalia Heaven - Lentes cerámicos con diamante por el Dr. Oscar Cruz" loading="lazy" decoding="async" width="500" height="500">
                                 <div class="celebrity-badge-overlay">
                                     <span class="badge-verified">
                                         <svg width="13" height="13" viewBox="0 0 24 24" fill="#C6A55C"><path d="M12 2l2.4 4.8 5.3.8-3.8 3.7.9 5.3-4.8-2.5-4.8 2.5.9-5.3-3.8-3.7 5.3-.8L12 2z"/></svg>
@@ -578,7 +581,7 @@
                         <!-- Card 2: Keyner Morales -->
                         <article class="celebrity-card">
                             <div class="celebrity-img-wrap">
-                                <img src="assets/img/keyner_morales_portrait.jpg" alt="Keyner Morales - Dinastía Morales - Diseño de sonrisa Dr. Oscar Cruz" loading="lazy">
+                                <img src="assets/img/keyner_morales_portrait.jpg" alt="Keyner Morales - Dinastía Morales - Diseño de sonrisa Dr. Oscar Cruz" loading="lazy" decoding="async" width="500" height="500">
                                 <div class="celebrity-badge-overlay">
                                     <span class="badge-verified">
                                         <svg width="13" height="13" viewBox="0 0 24 24" fill="#C6A55C"><path d="M12 2l2.4 4.8 5.3.8-3.8 3.7.9 5.3-4.8-2.5-4.8 2.5.9-5.3-3.8-3.7 5.3-.8L12 2z"/></svg>
@@ -635,7 +638,7 @@
                             <!-- Reel 1: Keyner Morales (Dinastía Morales - Video Oficial) -->
                             <article class="reel-card" data-index="0">
                                 <div class="reel-video-wrap">
-                                    <video poster="assets/img/keyner_morales_reel_poster.jpg" autoplay playsinline loop muted preload="auto" id="reelVid1">
+                                    <video poster="assets/img/keyner_morales_reel_poster.jpg" playsinline loop muted preload="metadata" id="reelVid1">
                                         <source src="assets/video/keyner_morales_video.mp4" type="video/mp4">
                                     </video>
                                     <div class="reel-top-bar">
@@ -662,7 +665,7 @@
                             <!-- Reel 2: Natalia Heaven Diamante -->
                             <article class="reel-card" data-index="1">
                                 <div class="reel-video-wrap">
-                                    <video poster="assets/img/lentes_incrustacion_diamante.jpg" autoplay playsinline loop muted preload="auto" id="reelVid2">
+                                    <video poster="assets/img/lentes_incrustacion_diamante.jpg" playsinline loop muted preload="metadata" id="reelVid2">
                                         <source src="assets/video/VIDOSC4.mp4" type="video/mp4">
                                         <source src="assets/video/DekqX2nR1Qs.mp4" type="video/mp4">
                                         <source src="https://files.catbox.moe/6co2oe.mp4" type="video/mp4">
@@ -691,7 +694,7 @@
                             <!-- Reel 3: Natalia Heaven Testimonio Real -->
                             <article class="reel-card" data-index="2">
                                 <div class="reel-video-wrap">
-                                    <video poster="assets/img/paciente_natalia_heaven.jpg" autoplay playsinline loop muted preload="auto" id="reelVid3">
+                                    <video poster="assets/img/paciente_natalia_heaven.jpg" playsinline loop muted preload="metadata" id="reelVid3">
                                         <source src="assets/video/VIDEOOSCNT.mp4" type="video/mp4">
                                         <source src="https://files.catbox.moe/4slcya.mp4" type="video/mp4">
                                     </video>
@@ -719,7 +722,7 @@
                             <!-- Reel 4: Testimonio de Paciente en Clínica -->
                             <article class="reel-card" data-index="3">
                                 <div class="reel-video-wrap">
-                                    <video poster="assets/img/paciente_estudio_rubia.jpg" autoplay playsinline loop muted preload="auto" id="reelVid4">
+                                    <video poster="assets/img/paciente_estudio_rubia.jpg" playsinline loop muted preload="metadata" id="reelVid4">
                                         <source src="assets/video/igexport-DfvJbEhREMB.mp4" type="video/mp4">
                                     </video>
                                     <div class="reel-top-bar">
@@ -746,7 +749,7 @@
                             <!-- Reel 5: Caso Clínico Masculino en Zirconio -->
                             <article class="reel-card" data-index="4">
                                 <div class="reel-video-wrap">
-                                    <video poster="assets/img/paciente_masculino_zirconio.jpg" autoplay playsinline loop muted preload="auto" id="reelVid5">
+                                    <video poster="assets/img/paciente_masculino_zirconio.jpg" playsinline loop muted preload="metadata" id="reelVid5">
                                         <source src="assets/video/igexport-Da6GISQRR8S.mp4" type="video/mp4">
                                     </video>
                                     <div class="reel-top-bar">
@@ -773,7 +776,7 @@
                             <!-- Reel 6: Arco Completo Intraoral -->
                             <article class="reel-card" data-index="5">
                                 <div class="reel-video-wrap">
-                                    <video poster="assets/img/macro_lentes_textura_vertical.jpg" autoplay playsinline loop muted preload="auto" id="reelVid6">
+                                    <video poster="assets/img/macro_lentes_textura_vertical.jpg" playsinline loop muted preload="metadata" id="reelVid6">
                                         <source src="assets/video/VIDOSC2.mp4" type="video/mp4">
                                         <source src="assets/video/igexport-DX7jr9txtCu.mp4" type="video/mp4">
                                         <source src="https://files.catbox.moe/3brmpc.mp4" type="video/mp4">
@@ -1025,7 +1028,7 @@
                 <div class="ab2-grid">
                     <figure class="ab2-portrait">
                         <div class="ab2-arch">
-                            <img src="assets/img/doctor_about_arch.jpg" alt="Retrato del Dr. Oscar Cruz sonriendo" loading="lazy">
+                            <img src="assets/img/doctor_about_arch.jpg" alt="Retrato del Dr. Oscar Cruz sonriendo" loading="lazy" decoding="async" width="480" height="600">
                         </div>
                         <figcaption><span>Bucaramanga</span><i aria-hidden="true"></i><span>Colombia</span></figcaption>
                     </figure>
@@ -1037,7 +1040,7 @@
                             &ldquo;Una sonrisa bien diseñada no se nota: <em>se siente natural</em>.&rdquo;
                         </blockquote>
                         <div class="ab2-sign">
-                            <img src="assets/img/logo_dr_oscar_cruz.png" alt="Firma Dr. Oscar Cruz R. - Sonrisas Latinas" class="ab2-sign-logo" loading="lazy">
+                            <img src="assets/img/logo_dr_oscar_cruz.png" alt="Firma Dr. Oscar Cruz R. - Sonrisas Latinas" class="ab2-sign-logo" loading="lazy" decoding="async" width="180" height="54">
                         </div>
                         <p class="ab2-lead">Más de diez años dedicados a la rehabilitación oral y al diseño de sonrisa en Bucaramanga.</p>
                         <p class="ab2-text">Cada caso comienza escuchando. Antes de pensar en cerámica o en tonos, el Dr. Cruz estudia la función, la armonía del rostro y la salud de cada diente, para proponer solo lo que cada paciente realmente necesita.</p>
@@ -1065,7 +1068,7 @@
                 <div class="ig-strip ig-card">
                     <a class="ig-head" href="https://www.instagram.com/dr.oscarcruz?utm_source=ig_web_button_share_sheet&xtok=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" aria-label="Abrir el Instagram de @dr.oscarcruz">
                         <span class="ig-avatar">
-                            <img src="assets/img/doctor_ig_avatar.jpg" alt="Dr. Oscar Cruz" width="64" height="64" loading="lazy">
+                            <img src="assets/img/doctor_ig_avatar.jpg" alt="Dr. Oscar Cruz" width="64" height="64" loading="lazy" decoding="async">
                         </span>
                         <span class="ig-id">
                             <span class="ig-handle">dr.oscarcruz
@@ -1083,27 +1086,29 @@
                 </div>
                 <div class="ig-feed-grid" aria-label="Publicaciones destacadas de @dr.oscarcruz">
                     <a href="https://www.instagram.com/dr.oscarcruz?utm_source=ig_web_button_share_sheet&xtok=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" class="ig-post-tile">
-                        <img src="assets/img/keyner_morales.jpg" alt="Keyner Morales - Dinastía Morales - Diseño de sonrisa Dr. Oscar Cruz" loading="lazy">
+                        <img src="assets/img/keyner_morales.jpg" alt="Keyner Morales - Dinastía Morales - Diseño de sonrisa Dr. Oscar Cruz" loading="lazy" decoding="async" width="300" height="300">
                         <span class="ig-post-overlay"><span>Ver en Instagram &nearr;</span></span>
                     </a>
                     <a href="https://www.instagram.com/dr.oscarcruz?utm_source=ig_web_button_share_sheet&xtok=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" class="ig-post-tile">
-                        <img src="assets/img/paciente_cuero_sonrisa_dedos.jpg" alt="Paciente diseño de sonrisa Dr. Oscar Cruz" loading="lazy">
+                        <img src="assets/img/paciente_cuero_sonrisa_dedos.jpg" alt="Paciente diseño de sonrisa Dr. Oscar Cruz" loading="lazy" decoding="async" width="300" height="300">
                         <span class="ig-post-overlay"><span>Ver en Instagram &nearr;</span></span>
                     </a>
                     <a href="https://www.instagram.com/dr.oscarcruz?utm_source=ig_web_button_share_sheet&xtok=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" class="ig-post-tile">
-                        <img src="assets/img/igexport_duecl5.jpg" alt="Diseño de sonrisa en lentes cerámicos Bucaramanga" loading="lazy">
+                        <img src="assets/img/igexport_duecl5.jpg" alt="Diseño de sonrisa en lentes cerámicos Bucaramanga" loading="lazy" decoding="async" width="300" height="300">
                         <span class="ig-post-overlay"><span>Ver en Instagram &nearr;</span></span>
                     </a>
                     <a href="https://www.instagram.com/dr.oscarcruz?utm_source=ig_web_button_share_sheet&xtok=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" class="ig-post-tile">
-                        <img src="assets/img/macro_labios_rojos_perfil.jpg" alt="Macro lentes cerámicos y textura Dr. Oscar Cruz" loading="lazy">
+                        <img src="assets/img/macro_labios_rojos_perfil.jpg" alt="Macro lentes cerámicos y textura Dr. Oscar Cruz" loading="lazy" decoding="async" width="300" height="300">
                         <span class="ig-post-overlay"><span>Ver en Instagram &nearr;</span></span>
                     </a>
                     <a href="https://www.instagram.com/dr.oscarcruz?utm_source=ig_web_button_share_sheet&xtok=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" class="ig-post-tile">
-                        <img src="assets/img/paciente_estudio_morena_01.jpg" alt="Retrato paciente lentes cerámicos" loading="lazy">
+                        <img src="assets/img/paciente_estudio_morena_01.jpg" alt="Retrato paciente lentes cerámicos" loading="lazy" decoding="async" width="300" height="300">
                         <span class="ig-post-overlay"><span>Ver en Instagram &nearr;</span></span>
                     </a>
                     <a href="https://www.instagram.com/dr.oscarcruz?utm_source=ig_web_button_share_sheet&xtok=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" class="ig-post-tile">
-                        <img src="assets/img/lentes_incrustacion_diamante.jpg" alt="Lentes cerámicos con diamante de micro-joyería" loading="lazy">
+                        <img src="assets/img/lentes_incrustacion_diamante.jpg" alt="Lentes cerámicos con diamante de micro-joyería" loading="lazy" decoding="async" width="300" height="300">
+                        <span class="ig-post-overlay"><span>Ver en Instagram &nearr;</span></span>
+                    </a>
                         <span class="ig-post-overlay"><span>Ver en Instagram &nearr;</span></span>
                     </a>
                 </div>
@@ -1337,7 +1342,7 @@
                 <!-- Col 1: Brand -->
                 <div>
                     <a href="#" class="brand-lockup footer-brand-lockup" aria-label="Dr. Oscar Cruz R. - Inicio">
-                        <img src="assets/img/logo_dr_oscar_cruz.png" alt="Dr. Oscar Cruz R. - Sonrisas Latinas" class="brand-logo-footer" width="185" height="56" loading="lazy">
+                        <img src="assets/img/logo_dr_oscar_cruz.png" alt="Dr. Oscar Cruz R. - Sonrisas Latinas" class="brand-logo-footer" width="185" height="56" loading="lazy" decoding="async">
                     </a>
                     <p class="footer-brand-p">
                         Práctica odontológica dedicada a la estética dental de alta precisión, lentes cerámicos y rehabilitación oral en Bucaramanga, Colombia.
@@ -1402,6 +1407,6 @@
     </a>
 
     <!-- Production JavaScript with Cache-Busting -->
-    <script src="js/main.js?v=20261116_v11"></script>
+    <script src="js/main.js?v=20261118_perf1"></script>
 </body>
 </html>

@@ -231,36 +231,44 @@ function initPreloader() {
 }
 initPreloader();
 
-// Video Reels Sound Controller & Viewport-Aware Continuous Playback
+// ==========================================================================
+// HIGH-PERFORMANCE VIDEO REELS ENGINE (IntersectionObserver + 60fps Playback)
+// ==========================================================================
+let activeAudioVideoId = null;
+
 function toggleReelSound(videoId, btn) {
     const targetVid = document.getElementById(videoId);
     if (!targetVid) return;
 
-    // Mute all other videos first so audio doesn't overlap
-    document.querySelectorAll('.reel-video-wrap video').forEach(v => {
-        if (v.id !== videoId) {
-            v.muted = true;
-        }
-    });
-    document.querySelectorAll('.reel-audio-fab, .reel-sound-btn').forEach(b => {
-        if (b !== btn) {
-            b.classList.remove('unmuted');
-            b.setAttribute('aria-label', 'Activar sonido');
-            b.setAttribute('title', 'Activar sonido');
-        }
-    });
+    const isCurrentlyMuted = targetVid.muted;
 
-    if (targetVid.muted) {
+    // If unmuting this video, mute all other videos first
+    if (isCurrentlyMuted) {
+        document.querySelectorAll('.reel-video-wrap video').forEach(v => {
+            if (v.id !== videoId) {
+                v.muted = true;
+            }
+        });
+        document.querySelectorAll('.reel-audio-fab').forEach(b => {
+            if (b !== btn) {
+                b.classList.remove('unmuted');
+                b.setAttribute('aria-label', 'Activar sonido');
+                b.setAttribute('title', 'Activar sonido');
+            }
+        });
+
         targetVid.muted = false;
         targetVid.play().catch(() => {});
         btn.classList.add('unmuted');
         btn.setAttribute('aria-label', 'Silenciar sonido');
         btn.setAttribute('title', 'Silenciar sonido');
+        activeAudioVideoId = videoId;
     } else {
         targetVid.muted = true;
         btn.classList.remove('unmuted');
         btn.setAttribute('aria-label', 'Activar sonido');
         btn.setAttribute('title', 'Activar sonido');
+        activeAudioVideoId = null;
     }
 }
 
@@ -288,81 +296,124 @@ function jumpToReel(index) {
     grid.scrollTo({ left: targetLeft, behavior: 'smooth' });
 }
 
-// Sync active indicator dot with scroll position
-const reelsGrid = document.getElementById('reelsGrid');
-if (reelsGrid) {
-    let scrollTimeout;
-    reelsGrid.addEventListener('scroll', () => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            const cards = reelsGrid.querySelectorAll('.reel-card');
-            const dots = document.querySelectorAll('.reel-dot');
-            if (!cards.length || !dots.length) return;
-            
-            const gridCenter = reelsGrid.scrollLeft + reelsGrid.offsetWidth / 2;
-            let closestIndex = 0;
-            let minDistance = Infinity;
-            
-            cards.forEach((card, idx) => {
-                const cardCenter = (card.offsetLeft - reelsGrid.offsetLeft) + card.offsetWidth / 2;
-                const dist = Math.abs(gridCenter - cardCenter);
-                if (dist < minDistance) {
-                    minDistance = dist;
-                    closestIndex = idx;
+// Viewport & Visibility Video Management
+const reelsContainer = document.getElementById('reelsGrid');
+let isReelsSectionVisible = false;
+
+function updateReelsPlayback() {
+    if (!reelsContainer) return;
+    const cards = reelsContainer.querySelectorAll('.reel-card');
+    const dots = document.querySelectorAll('.reel-dot');
+    if (!cards.length) return;
+
+    const gridLeft = reelsContainer.scrollLeft;
+    const gridWidth = reelsContainer.clientWidth;
+    const gridCenter = gridLeft + gridWidth / 2;
+
+    let closestIndex = 0;
+    let minDistance = Infinity;
+
+    cards.forEach((card, idx) => {
+        const video = card.querySelector('video');
+        if (!video) return;
+
+        // Relative horizontal position inside scroll container
+        const cardLeft = card.offsetLeft - reelsContainer.offsetLeft;
+        const cardRight = cardLeft + card.offsetWidth;
+        const cardCenter = cardLeft + card.offsetWidth / 2;
+
+        const dist = Math.abs(gridCenter - cardCenter);
+        if (dist < minDistance) {
+            minDistance = dist;
+            closestIndex = idx;
+        }
+
+        // Determine if card is horizontally visible within the carousel container
+        const isHorizontallyVisible = (cardRight > gridLeft + 10) && (cardLeft < gridLeft + gridWidth - 10);
+
+        if (isReelsSectionVisible && isHorizontallyVisible) {
+            if (video.paused) {
+                video.play().catch(() => {});
+            }
+        } else {
+            if (!video.paused) {
+                video.pause();
+                // If this video had active audio, mute it when scrolled away
+                if (video.id === activeAudioVideoId) {
+                    video.muted = true;
+                    const fab = card.querySelector('.reel-audio-fab');
+                    if (fab) {
+                        fab.classList.remove('unmuted');
+                        fab.setAttribute('aria-label', 'Activar sonido');
+                    }
+                    activeAudioVideoId = null;
                 }
+            }
+        }
+    });
+
+    if (dots.length) {
+        dots.forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === closestIndex);
+        });
+    }
+}
+
+// rAF-debounced carousel scroll listener (prevents layout thrashing & drops 0 frames)
+if (reelsContainer) {
+    let scrollTicking = false;
+    reelsContainer.addEventListener('scroll', () => {
+        if (!scrollTicking) {
+            window.requestAnimationFrame(() => {
+                updateReelsPlayback();
+                scrollTicking = false;
             });
-            
-            dots.forEach((dot, idx) => {
-                dot.classList.toggle('active', idx === closestIndex);
-            });
-        }, 60);
+            scrollTicking = true;
+        }
     }, { passive: true });
 }
 
-// ==========================================================================
-// CONTINUOUS GALLERY VIDEO PLAYBACK & CLICK-TO-UNMUTE
-// ==========================================================================
-function startAllReelVideos() {
-    const reelVideos = document.querySelectorAll('.reel-video-wrap video');
-    reelVideos.forEach(v => {
-        v.muted = true;
-        v.playsInline = true;
-        v.loop = true;
-        v.setAttribute('autoplay', '');
-        v.setAttribute('playsinline', '');
-        v.setAttribute('muted', '');
-        v.setAttribute('loop', '');
+// Section-level observer: Only decode videos when user is at the reels section
+function initReelsVideoObserver() {
+    const reelsSection = document.getElementById('experiencias');
+    if (!reelsSection) return;
 
-        const playPromise = v.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(() => {
-                // If browser requires user interaction before autoplaying,
-                // activate all videos on the first touch, scroll or click anywhere
-                const resumeAll = () => {
-                    reelVideos.forEach(vid => vid.play().catch(() => {}));
-                    window.removeEventListener('touchstart', resumeAll);
-                    window.removeEventListener('scroll', resumeAll);
-                    window.removeEventListener('click', resumeAll);
-                };
-                window.addEventListener('touchstart', resumeAll, { passive: true, once: true });
-                window.addEventListener('scroll', resumeAll, { passive: true, once: true });
-                window.addEventListener('click', resumeAll, { passive: true, once: true });
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                isReelsSectionVisible = entry.isIntersecting;
+                if (isReelsSectionVisible) {
+                    updateReelsPlayback();
+                } else {
+                    // Instantly pause all videos and free GPU hardware decoders
+                    document.querySelectorAll('.reel-video-wrap video').forEach(v => {
+                        if (!v.paused) v.pause();
+                    });
+                }
             });
-        }
-    });
+        }, {
+            threshold: 0.15,
+            rootMargin: '120px 0px 120px 0px'
+        });
+
+        observer.observe(reelsSection);
+    } else {
+        isReelsSectionVisible = true;
+        updateReelsPlayback();
+    }
 }
 
-// Start immediately on DOM ready and window load
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', startAllReelVideos);
+    document.addEventListener('DOMContentLoaded', initReelsVideoObserver);
 } else {
-    startAllReelVideos();
+    initReelsVideoObserver();
 }
-window.addEventListener('load', startAllReelVideos);
 
-// Clicking anywhere on the video wrap toggles the sound without stopping the video
+// Clicking anywhere on the video wrap toggles sound without interrupting video
 document.querySelectorAll('.reel-video-wrap').forEach(wrap => {
     wrap.addEventListener('click', (e) => {
+        // If click was on audio fab itself, let fab onclick handle it
+        if (e.target.closest('.reel-audio-fab')) return;
         const video = wrap.querySelector('video');
         const fab = wrap.querySelector('.reel-audio-fab');
         if (video && fab) {
@@ -371,20 +422,22 @@ document.querySelectorAll('.reel-video-wrap').forEach(wrap => {
     });
 });
 
-// Re-ensure continuous playback if browser visibility changes or tab is revisited
+// Tab visibility & background power saver: pause when tab inactive, resume visible when active
 document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) {
+    if (document.hidden) {
         document.querySelectorAll('.reel-video-wrap video').forEach(v => {
-            if (v.paused) v.play().catch(() => {});
+            if (!v.paused) v.pause();
         });
+    } else if (isReelsSectionVisible) {
+        updateReelsPlayback();
     }
 });
 
 // ==========================================================================
-// SCROLL REVEAL ENTRANCE ANIMATIONS
+// SCROLL REVEAL ENTRANCE ANIMATIONS (Auto Unobserve for Memory Efficiency)
 // ==========================================================================
 function initScrollReveal() {
-    const revealTargets = document.querySelectorAll('.treatments-section, .cases-section, .reels-section, .process-section, .about-section, .quiz-section, .faqs-section, .contact-section, .instagram-section');
+    const revealTargets = document.querySelectorAll('.treatments-section, .cases-section, .reels-showcase-block, .process-section, .about-section, .quiz-section, .faqs-section, .contact-section, .instagram-section');
     revealTargets.forEach(el => el.classList.add('reveal-on-scroll'));
 
     if ('IntersectionObserver' in window) {
@@ -392,6 +445,7 @@ function initScrollReveal() {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-revealed');
+                    observer.unobserve(entry.target);
                 }
             });
         }, {
